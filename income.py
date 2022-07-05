@@ -1,31 +1,25 @@
 class Income:
+    roi = {}
     def __init__(self):
         self.name = ""
-        self.income_name = {}
         self.amount = ""
-        self.income_amount = {}
-        self.amount_list = []
+        self.additions = ""
+        self.income_list = []
+        self.total = ""
+    def __repr__(self):
+        return self.name
+    def create_income(self):
+        income = Income()
+        income.name = input("Enter the name for this income: ")
+        income.amount = int(input("Enter the amount for this income: "))
+        income.additions = input("Would you like to add additional income? Y/N ")
+        while income.additions == "y":
+            income.amount = int(input("Enter amount for this income: "))
+            income.income_list.append(income.amount)
+            income.additions = input("Would you like to add additional income? Y/N ")
+        income.income_list.append(income.amount)
+        income.total = sum(income.income_list)
+        self.roi[f"{income.name}"] = income.total
+        return f"You have entered ${income.total} in total for {income.name}."
 
-    def get_income(self):
-        print("Please enter income information")
-        self.name = input("What is the income name: ")
-        self.amount = int(input("What is the amount of income: "))
-        return self.name, self.amount
 
-    def add_income(self):
-        self.get_income()
-        self.income_name["name"] = self.name
-        self.income_amount["amount"] = self.amount
-        self.amount_list.append(self.amount)
-        print(f"You have added {self.amount} to {self.name}.")
-        print()
-        more_income = input("Would you like to add more income: Y/N ").lower()
-        if more_income == "y":
-            self.add_income()
-        else:
-            total_income = sum(self.amount_list)
-            print(f"You have total income of ${total_income}.")
-
-        return self.income_name, self.income_amount
-income1 = Income()
-income1.add_income()

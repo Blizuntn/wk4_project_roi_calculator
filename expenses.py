@@ -1,29 +1,23 @@
 class Expenses:
+    roi = {}
     def __init__(self):
-        self.expense_name = {}
         self.name = ""
         self.amount = ""
-        self.expense_amount = {}
-        self.amount_list = []
+        self.expense_list = []
+        self.total = ""
+    def __repr__(self):
+        return self.name
+    def create_expense(self):
+        expense = Expenses()
+        expense.name = input("Enter the name for this expense: ")
+        expense.amount = int(input("Enter the amount for this expense: "))
+        expense.additions = input("Would you like to add another expense: Y/N ")
+        while expense.additions == "y":
+            expense.amount = int(input("Enter the amount for this expense: "))
+            expense.additions = input("Would you like to add another expense: Y/N ")
+        expense.expense_list.append(expense.amount)
+        expense.total = sum(expense.expense_list)
+        self.roi[f"{expense.name}"] = expense.total
+        return f"You have entered {expense.total} in total for {expense.name}."
 
-    def get_expenses(self):
-        print("Please enter expense info")
-        self.name = input("Please enter an expense name: ")
-        self.amount = input("Please enter an expense amount: ")
-        return self.name, self.amount
 
-    def add_expenses(self):
-        self.get_expenses()
-        self.expense_name["name"] = self.name
-        self.expense_amount["amount"] = self.amount
-        self.amount_list.append(self.amount)
-        print(f"You have added {self.amount} to {self.name}.")
-        print()
-        more_expenses = input("Would you like to add more expenses: Y/N ").lower()
-        if more_expenses == "y":
-            self.add_expenses()
-        else:
-            total_expenses = sum(self.amount_list)
-            print(f"Your total expenses are ${total_expenses}.")
-
-        return self.expense_name, self.expense_amount

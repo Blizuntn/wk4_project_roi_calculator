@@ -1,29 +1,24 @@
 class Investments:
+    roi = {}
     def __init__(self):
         self.name = ""
-        self.investment_name = {}
         self.amount = ""
-        self.investment_amount = {}
-        self.amount_list = []
+        self.investment_list = []
+        self.total = ""
+        self.additions = ""
+    def __repr__(self):
+        return self.name
 
-    def get_investment(self):
-        print("Please enter investment information")
-        self.name = input("What is the investment name: ")
-        self.amount = int(input("What is the amount of the investment: "))
-        return self.name, self.amount
+    def create_investment(self):
+        investment = Investments()
+        investment.name = input("Enter a name for this investment: ")
+        investment.amount = int(input("Enter an amount for this investment: "))
+        investment.additions = input("Would you like to add an additional investment: Y/N ")
+        while investment.additions == "y":
+            investment.amount = int(input("Enter an amount for this investment: "))
+            investment.additions = input("Would you like to add an additional investment: Y/N ")
+        investment.investment_list.append(investment.amount)
+        investment.total = sum(investment.investment_list)
+        self.roi[f"{investment.name}"] = investment.total
+        return f"You have entered {investment.total} in total for {investment.name}."
 
-    def add_investment(self):
-        self.get_investment()
-        self.investment_name["name"] = self.name
-        self.investment_amount["amount"] = self.amount
-        self.amount_list.append(self.amount)
-        print(f"You have added {self.amount} to {self.name}.")
-        print()
-        more_investment = input("Would you like to add another investment: Y/N ").lower()
-        if more_investment == "y":
-            self.add_investment()
-        else:
-            total_investment = sum(self.amount_list)
-            print(f"You have total investment of ${total_investment}.")
-
-        return self.investment_name, self.investment_amount
